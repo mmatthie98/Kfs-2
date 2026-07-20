@@ -30,8 +30,16 @@ enum vga_color {
 	VGA_COLOR_LIGHT_BROWN = 14,
 	VGA_COLOR_WHITE = 15,
 };
-void check_gdt(void);
 void gdt_init(void);
-void print_hex(unsigned int value);
+void check_gdt(void);
+void check_gdt_entries(void);
+
+void terminal_initialize(void);
+void terminal_writestring(const char *data);
+void terminal_writestring_line(const char *str);
+void terminal_write_hex(uint32_t value);
+void terminal_newline(void);
+
+void print_kernel_stack(uint32_t entries);
 
 #endif

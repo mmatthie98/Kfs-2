@@ -153,6 +153,25 @@ void check_gdt(void)
     terminal_newline();
 }
 
+void check_gdt_entries(void)
+{
+    struct gdt_entry *gdt =
+        (struct gdt_entry *)0x00000800;
+
+    for (int i = 0; i < GDT_ENTRIES; i++) {
+        terminal_writestring("Entry ");
+        terminal_write_hex(i);
+
+        terminal_writestring(" access=");
+        terminal_write_hex(gdt[i].access);
+
+        terminal_writestring(" gran=");
+        terminal_write_hex(gdt[i].granularity);
+
+        terminal_newline();
+    }
+}
+
 void kernel_main(void)
 {
     terminal_initialize();
@@ -164,6 +183,8 @@ void kernel_main(void)
     terminal_writestring_line("AFTER GDT INIT");
 
     check_gdt();
+
+	check_gdt_entries();
 
     terminal_writestring_line("AFTER GDT CHECK");
 
