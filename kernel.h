@@ -10,7 +10,18 @@
 #define VGA_MEMORY  0xB8000
 
 #define GDT_ADDR 0x00000800
+
 #define GDT_ENTRIES 7
+
+struct gdt_entry
+{
+    uint16_t limit_low;
+    uint16_t base_low;
+    uint8_t base_middle;
+    uint8_t access;
+    uint8_t granularity;
+    uint8_t base_high;
+} __attribute__((packed));
 
 enum vga_color {
 	VGA_COLOR_BLACK = 0,

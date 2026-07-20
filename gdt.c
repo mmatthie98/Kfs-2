@@ -1,14 +1,5 @@
 #include "kernel.h"
 
-struct gdt_entry {
-    uint16_t limit_low;
-    uint16_t base_low;
-    uint8_t  base_middle;
-    uint8_t  access_byte;
-    uint8_t  granularity;
-    uint8_t  base_high;
-} __attribute__((packed));
-
 struct gdt_ptr {
     uint16_t limit;
     uint32_t base;
@@ -27,7 +18,7 @@ static void gdt_set_entry(int num, uint32_t base, uint32_t limit, uint8_t access
     gdt[num].limit_low   = limit & 0xFFFF;
     gdt[num].granularity = (limit >> 16) & 0x0F;
     gdt[num].granularity |= gran & 0xF0;
-    gdt[num].access_byte = access_byte;
+    gdt[num].access = access_byte;
 }
 
 void gdt_init(void)
